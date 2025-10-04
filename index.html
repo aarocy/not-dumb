@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaron Cyrus | This Is Not a Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@300;400;500&display=swap');
+        
+        :root {
+            --obsidian: #0a0a0b;
+            --obsidian-deep: #050506;
+            --vermilion: #ff3b3b;
+            --acid-lime: #c7ff00;
+            --off-white: #f4f2ed;
+            --gray-muted: #6b6b6d;
+            --noise-opacity: 0.03;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        ::selection {
+            background: var(--acid-lime);
+            color: var(--obsidian);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--obsidian);
+            color: var(--off-white);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.01) 2px,
+                    rgba(255, 255, 255, 0.01) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+        }
+        
+        #cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--vermilion);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease-out, border-color 0.3s ease;
+            mix-blend-mode: difference;
+        }
+        
+        #cursor.hover {
+            transform: scale(2.5);
+            border-color: var(--acid-lime);
+            background: rgba(199, 255, 0, 0.1);
+        }
+        
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: var(--noise-opacity);
+            z-index: 2;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgbnVtT2N0YXZlcz0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMSIvPjwvc3ZnPg==');
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero-visual {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .visual-loop {
+            width: 80%;
+            height: 80%;
+            position: relative;
+            transform: rotate(-2deg);
+        }
+        
+        .glitch-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--vermilion), var(--acid-lime));
+            clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+            animation: morph 8s ease-in-out infinite;
+        }
+        
+        @keyframes morph {
+            0%, 100% { clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%); }
+            25% { clip-path: polygon(0% 20%, 100% 40%, 80% 100%, 20% 80%); }
+            50% { clip-path: polygon(40% 0%, 60% 20%, 100% 80%, 0% 100%); }
+            75% { clip-path: polygon(0% 0%, 100% 20%, 60% 100%, 40% 80%); }
+        }
+        
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px;
+            position: relative;
+        }
+        
+        .hero-headline {
+            font-family: 'Space Grotesk', monospace;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+        
+        .hero-headline span {
+            display: block;
+            overflow: hidden;
+        }
+        
+        .hero-headline .line {
+            display: inline-block;
+            animation: slideUp 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            animation-delay: calc(var(--line) * 0.15s);
+            transform: translateY(120%);
+        }
+        
+        @keyframes slideUp {
+            to { transform: translateY(0); }
+        }
+        
+        .hero-headline .highlight {
+            color: var(--vermilion);
+            position: relative;
+        }
+        
+        .hero-headline .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--acid-lime);
+            animation: underline 0.8s ease-out 1.5s forwards;
+        }
+        
+        @keyframes underline {
+            to { width: 100%; }
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 20px 40px;
+            background: var(--vermilion);
+            color: var(--obsidian);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.125rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 20px 100%);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--acid-lime);
+            transition: left 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .cta-button:hover::before {
+            left: 0;
+        }
+        
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+            transition: color 0.4s ease;
+        }
+        
+        .cta-button:hover span {
+            color: var(--obsidian);
+        }
+        
+        /* Timeline Section */
+        .timeline {
+            padding: 120px 0;
+            position: relative;
+            z-index: 10;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .timeline.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title {
+            font-family: 'Space Grotesk', monospace;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title::before {
+            content: '//';
+            color: var(--vermilion);
+            margin-right: 20px;
+        }
+        
+        .timeline-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        .project-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            margin-bottom: 200px;
+            position: relative;
+        }
+        
+        .project-card:nth-child(even) {
+            grid-template-columns: 1fr 1fr;
+            direction: rtl;
+        }
+        
+        .project-card:nth-child(even) > * {
+            direction: ltr;
+        }
+        
+        .project-visual {
+            position: relative;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(255, 59, 59, 0.1), rgba(199, 255, 0, 0.1));
+            border: 2px solid var(--gray-muted);
+            overflow: hidden;
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .project-card:nth-child(even) .project-visual {
+            transform: perspective(1000px) rotateY(5deg);
+        }
+        
+        .project-visual:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.02);
+            border-color: var(--vermilion);
+        }
+        
+        .project-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+        }
+        
+        .project-number {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--gray-muted);
+            opacity: 0.2;
+            line-height: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        .project-title {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .project-tagline {
+            font-size: 1.25rem;
+            color: var(--vermilion);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .project-description {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--gray-muted);
+            margin-bottom: 40px;
+        }
+        
+        .director-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: transparent;
+            border: 2px solid var(--acid-lime);
+            color: var(--acid-lime);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .director-toggle:hover {
+            color: var(--obsidian);
+            background: var(--acid-lime);
+            transform: translateX(5px);
+        }
+        
+        /* Experiments Cabinet */
+        .experiments {
+            padding: 120px 0;
+            position: relative;
+            z-index: 10;
+        }        .cabinet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        .experiment-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(255, 59, 59, 0.05), rgba(199, 255, 0, 0.05));
+            border: 1px solid var(--gray-muted);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .experiment-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            border-color: var(--vermilion);
+            background: linear-gradient(135deg, rgba(255, 59, 59, 0.2), rgba(199, 255, 0, 0.2));
+        }
+        
+        .experiment-item::before {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-family: 'Space Grotesk', monospace;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--off-white);
+            z-index: 2;
+        }
+        
+        .experiment-item::after {
+            content: attr(data-type);
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 6px 12px;
+            background: var(--vermilion);
+            color: var(--obsidian);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 120px 0;
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(180deg, transparent, rgba(255, 59, 59, 0.03), transparent);
+        }
+        
+        .typewriter-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        .architect-header {
+            margin-bottom: 60px;
+            position: relative;
+            text-align: center;
+        }
+
+        .architect-name-container {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .architect-name {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--vermilion);
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .architect-name::before,
+        .architect-name::after {
+            content: 'Aaron Cyrus';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .architect-name::before {
+            color: var(--acid-lime);
+            transform: translate(-4px, -4px);
+            opacity: 0.3;
+            animation: nameGlitch 4s infinite alternate;
+        }
+
+        .architect-name::after {
+            color: var(--vermilion);
+            transform: translate(4px, 4px);
+            opacity: 0.3;
+            animation: nameGlitch 3s infinite alternate-reverse;
+        }
+
+        @keyframes nameGlitch {
+            0%, 100% { transform: translate(-4px, -4px); }
+            25% { transform: translate(4px, -4px); }
+            50% { transform: translate(-4px, 4px); }
+            75% { transform: translate(4px, 4px); }
+        }
+
+        .architect-title {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.25rem;
+            color: var(--gray-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .manifesto {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .testimonial {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 59, 59, 0.05), rgba(199, 255, 0, 0.05));
+            border: 1px solid var(--gray-muted);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-glitch {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 45%, var(--vermilion) 45%, var(--vermilion) 55%, transparent 55%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .testimonial:hover .testimonial-glitch {
+            opacity: 0.1;
+        }
+
+        .testimonial-text {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--off-white);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: var(--acid-lime);
+            font-style: normal;
+        }
+        
+        .manifesto .typing {
+            position: relative;
+            display: inline;
+        }
+        
+        .manifesto .typing::after {
+            content: '|';
+            position: absolute;
+            right: -10px;
+            color: var(--vermilion);
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .curiosity-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 100px;
+            padding: 40px;
+            background: linear-gradient(90deg, transparent, rgba(255, 59, 59, 0.05), transparent);
+            position: relative;
+        }
+        
+        .curiosity-item {
+            text-align: center;
+            position: relative;
+        }
+        
+        .curiosity-year {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--vermilion);
+            margin-bottom: 10px;
+        }
+        
+        .curiosity-label {
+            font-size: 0.875rem;
+            color: var(--gray-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Contact Vault */
+        .contact {
+            padding: 120px 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .vault-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(255, 59, 59, 0.05), rgba(199, 255, 0, 0.05));
+            border: 2px solid var(--gray-muted);
+            position: relative;
+        }
+        
+        .vault-container::before {
+            content: 'ACCESS REQUESTED';
+            position: absolute;
+            top: -20px;
+            left: 40px;
+            padding: 8px 16px;
+            background: var(--obsidian);
+            color: var(--acid-lime);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--gray-muted);
+            color: var(--off-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1.125rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--vermilion);
+        }
+        
+        .form-label {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            color: var(--gray-muted);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -10px;
+            font-size: 0.875rem;
+            color: var(--vermilion);
+        }
+        
+        .submit-button {
+            padding: 20px;
+            background: var(--vermilion);
+            color: var(--obsidian);
+            border: none;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.125rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .submit-button:hover {
+            background: var(--acid-lime);
+            transform: translateY(-2px);
+        }
+        
+        /* Easter Eggs */
+        .konami-activated {
+            animation: rainbow 2s linear infinite;
+        }
+        
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        /* Secret Menu */
+        .secret-menu {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: var(--obsidian-deep);
+            border: 2px solid var(--acid-lime);
+            padding: 40px;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .secret-menu.active {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        
+        .secret-title {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 2rem;
+            color: var(--acid-lime);
+            margin-bottom: 20px;
+        }
+        
+        .secret-content {
+            color: var(--off-white);
+            line-height: 1.6;
+        }
+        
+        /* Footer Styles */
+        .site-footer {
+            background: var(--obsidian-deep);
+            border-top: 1px solid rgba(199, 255, 0, 0.1);
+            padding: 80px 0 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .glitch-text {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--vermilion);
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: 'AC';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-text::before {
+            color: var(--acid-lime);
+            transform: translateX(-2px);
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .glitch-text::after {
+            color: var(--vermilion);
+            transform: translateX(2px);
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+            animation: glitch 4s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translateX(2px); }
+            50% { transform: translateX(-2px); }
+        }
+
+        .footer-tagline {
+            color: var(--gray-muted);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--acid-lime);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--vermilion);
+            transform: translateX(5px);
+        }
+
+        .link-indicator {
+            font-size: 0.75rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover .link-indicator {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .footer-terminal {
+            background: var(--obsidian);
+            border: 1px solid var(--gray-muted);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: rgba(199, 255, 0, 0.1);
+            padding: 8px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .terminal-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gray-muted);
+        }
+
+        .terminal-content {
+            padding: 16px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.75rem;
+        }
+
+        .terminal-prompt {
+            color: var(--acid-lime);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .terminal-output {
+            color: var(--off-white);
+            display: block;
+        }
+
+        .terminal-cursor {
+            color: var(--vermilion);
+            animation: blink 1s step-end infinite;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 60px auto 0;
+            padding: 40px 40px 0;
+            border-top: 1px solid rgba(199, 255, 0, 0.1);
+            text-align: center;
+        }
+
+        .copyright {
+            color: var(--gray-muted);
+            font-size: 0.75rem;
+        }
+
+        .copyright-glitch {
+            color: var(--vermilion);
+            position: relative;
+        }
+
+        .copyright-glitch::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--acid-lime);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .copyright:hover .copyright-glitch::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+            }
+            
+            .hero-content {
+                padding: 40px;
+            }
+            
+            .project-card,
+            .project-card:nth-child(even) {
+                grid-template-columns: 1fr;
+                direction: ltr;
+                gap: 40px;
+            }
+            
+            .curiosity-timeline {
+                flex-direction: column;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .project-title {
+                font-size: 1.75rem;
+            }
+            
+            .cabinet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .footer-link {
+                justify-content: center;
+            }
+
+            .footer-terminal {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    
+    <!-- Noise Overlay -->
+    <div class="noise"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-visual">
+            <div class="visual-loop">
+                <div class="glitch-container"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-headline">
+                <span><span class="line" style="--line: 0">This Is Not</span></span>
+                <span><span class="line highlight" style="--line: 1">a Portfolio</span></span>
+                <span><span class="line" style="--line: 2">It Is a Rerouting</span></span>
+                <span><span class="line" style="--line: 3">of Expectation</span></span>
+            </h1>
+            <a href="#timeline" class="cta-button">
+                <span>Open The Exhibit →</span>
+            </a>
+        </div>
+    </section>
+    
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline">
+        <h2 class="section-title">Flagship Disturbances</h2>
+        <div class="timeline-container">
+            <div class="project-card">
+                <div class="project-visual"></div>
+                <div class="project-info">
+                    <div class="project-number">01</div>
+                    <h3 class="project-title">Neural Symphony</h3>
+                    <p class="project-tagline">"We broke the rules and taught them to dance"</p>
+                    <p class="project-description">
+                        An AI-powered installation that transforms human emotions into 
+                        generative soundscapes. Real-time biometric data becomes a 
+                        collaborative composition between man and machine.
+                    </p>
+                    <button class="director-toggle">Director's Cut ↗</button>
+                    <div class="testimonial">
+                        <div class="testimonial-glitch"></div>
+                        <blockquote class="testimonial-text">"This isn't just code—it's digital poetry in motion. Aaron's work challenges what we thought was possible."</blockquote>
+                        <cite class="testimonial-author">— Neural Times Magazine</cite>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-visual"></div>
+                <div class="project-info">
+                    <div class="project-number">02</div>
+                    <h3 class="project-title">Quantum Retail</h3>
+                    <p class="project-tagline">"Commerce that exists in multiple states simultaneously"</p>
+                    <p class="project-description">
+                        Revolutionary e-commerce platform where products exist in 
+                        probabilistic states until observed. Each user interaction 
+                        collapses the wave function into personalized realities.
+                    </p>
+                    <button class="director-toggle">Director's Cut ↗</button>
+                    <div class="testimonial">
+                        <div class="testimonial-glitch"></div>
+                        <blockquote class="testimonial-text">"Aaron has redefined what's possible in e-commerce. The quantum approach is nothing short of revolutionary."</blockquote>
+                        <cite class="testimonial-author">— Future Commerce Weekly</cite>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-visual"></div>
+                <div class="project-info">
+                    <div class="project-number">03</div>
+                    <h3 class="project-title">Void Protocol</h3>
+                    <p class="project-tagline">"Building bridges to nowhere, beautifully"</p>
+                    <p class="project-description">
+                        Experimental web experience that questions the nature of 
+                        digital presence. Users navigate through intentional voids, 
+                        finding meaning in the spaces between.
+                    </p>
+                    <button class="director-toggle">Director's Cut ↗</button>
+                    <div class="testimonial">
+                        <div class="testimonial-glitch"></div>
+                        <blockquote class="testimonial-text">"The Void Protocol is a masterclass in digital art. Cyrus continues to push the boundaries of web experiences."</blockquote>
+                        <cite class="testimonial-author">— Digital Arts Collective</cite>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experiments Cabinet -->
+    <section class="experiments">
+        <h2 class="section-title">Cabinet of Curiosities</h2>
+        <div class="cabinet-grid">
+            <div class="experiment-item" data-title="Glitch Typography" data-type="TYPE"></div>
+            <div class="experiment-item" data-title="Sonic Interfaces" data-type="AUDIO"></div>
+            <div class="experiment-item" data-title="Brutalist Forms" data-type="UI"></div>
+            <div class="experiment-item" data-title="Data Sculptures" data-type="VIZ"></div>
+            <div class="experiment-item" data-title="Motion Studies" data-type="ANIM"></div>
+            <div class="experiment-item" data-title="Chaos Engines" data-type="GEN"></div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about">
+        <h2 class="section-title">The Architect</h2>
+        <div class="typewriter-container">
+            <div class="architect-header">
+                <div class="architect-name-container">
+                    <h3 class="architect-name">Aaron Cyrus</h3>
+                </div>
+                <p class="architect-title">Digital Alchemist & Code Breaker</p>
+            </div>
+            <div class="manifesto-container">
+                <p class="manifesto">
+                    <span class="typing">I architect digital experiences that refuse to behave. 
+                    Where others see constraints, I see invitations to break things beautifully. 
+                    My work lives in the tension between order and chaos, creating spaces where 
+                    technology becomes poetry and interfaces become instruments of wonder.</span>
+                </p>
+            </div>
+            <div class="curiosity-timeline">
+                <div class="curiosity-item">
+                    <div class="curiosity-year">2018</div>
+                    <div class="curiosity-label">First Glitch</div>
+                </div>
+                <div class="curiosity-item">
+                    <div class="curiosity-year">2020</div>
+                    <div class="curiosity-label">Void Walker</div>
+                </div>
+                <div class="curiosity-item">
+                    <div class="curiosity-year">2022</div>
+                    <div class="curiosity-label">Reality Hacker</div>
+                </div>
+                <div class="curiosity-item">
+                    <div class="curiosity-year">2024</div>
+                    <div class="curiosity-label">Chaos Conductor</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Vault -->
+    <section class="contact">
+        <h2 class="section-title">Enter the Vault</h2>
+        <div class="vault-container">
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder=" " required>
+                    <label class="form-label">Your Alias</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder=" " required>
+                    <label class="form-label">Digital Coordinates</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder=" " required>
+                    <label class="form-label">Mission Brief</label>
+                </div>
+                <button type="submit" class="submit-button">
+                    Lock a 20-minute mischief session
+                </button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Secret Menu (Easter Egg) -->
+    <div class="secret-menu" id="secretMenu">
+        <h3 class="secret-title">You Found It</h3>
+        <div class="secret-content">
+            <p>Welcome to the backstage. Here's where the real magic happens.</p>
+            <p>Press ESC to return to reality.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <div class="glitch-text">AC</div>
+                </div>
+                <p class="footer-tagline">Breaking digital boundaries since 2018</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Digital Outposts</h4>
+                <ul class="footer-links">
+                    <li><a href="#" class="footer-link">GitHub <span class="link-indicator">↗</span></a></li>
+                    <li><a href="#" class="footer-link">CodePen <span class="link-indicator">↗</span></a></li>
+                    <li><a href="#" class="footer-link">Twitter <span class="link-indicator">↗</span></a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Neural Network</h4>
+                <ul class="footer-links">
+                    <li><a href="#" class="footer-link">Blog <span class="link-indicator">↗</span></a></li>
+                    <li><a href="#" class="footer-link">Lab Notes <span class="link-indicator">↗</span></a></li>
+                    <li><a href="#" class="footer-link">Research <span class="link-indicator">↗</span></a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-terminal">
+                    <div class="terminal-header">
+                        <span class="terminal-dot"></span>
+                        <span class="terminal-dot"></span>
+                        <span class="terminal-dot"></span>
+                    </div>
+                    <div class="terminal-content">
+                        <span class="terminal-prompt">$ echo "Made with chaos"</span>
+                        <span class="terminal-output">Running on caffeine and curiosity</span>
+                        <span class="terminal-cursor">▋</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Aaron Cyrus. <span class="copyright-glitch">All rights subverted</span></p>
+        </div>
+    </footer>
+    
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function animateCursor() {
+            const dx = mouseX - cursorX;
+            const dy = mouseY - cursorY;
+            
+            cursorX += dx * 0.2;
+            cursorY += dy * 0.2;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        
+        // Hover effects
+        const hoverElements = document.querySelectorAll('a, button, .experiment-item');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+        
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
