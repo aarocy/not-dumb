@@ -1,6 +1,6 @@
 # Aaron Cyrus - Portfolio
 
-![Portfolio Preview](https://via.placeholder.com/1200x600/1a1a1a/ffffff?text=Portfolio+Preview)
+![Portfolio Preview](https://aarocy.vercel.app/)
 
 An experimental portfolio showcasing full-stack development and creative technology projects. Built with modern web technologies and a focus on performance and interactivity.
 
