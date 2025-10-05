@@ -1,6 +1,5 @@
 # Aaron Cyrus - Portfolio
 
-![Portfolio Preview](https://aarocy.vercel.app/)
 
 An experimental portfolio showcasing full-stack development and creative technology projects. Built with modern web technologies and a focus on performance and interactivity.
 
@@ -82,12 +81,6 @@ The portfolio is fully responsive with breakpoints at:
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🤝 Contact
-
-- Portfolio: [aaroncyrus.com](https://aaroncyrus.com)
-- GitHub: [@aarocy](https://github.com/aarocy)
-- LinkedIn: [Aaron Cyrus](https://linkedin.com/in/aaroncyrus)
 
 ---
 
